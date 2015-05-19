@@ -1,8 +1,3 @@
-05.06.2014
-
-Yves Hwang
-http://macyves.wordpress.com
-
 selenium-2step
 ==============
 
@@ -14,6 +9,6 @@ The Vagrant file will install Selenium, Firefox and Xvfb. Firefox will run headl
 
 Steps
 =====
-1. Vagrant up selenium
+1. vagrant up selenium --provider virtualbox
 
 2. Point your tests to http://localhost:4444/wd/hub and enjoy.
