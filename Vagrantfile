@@ -31,6 +31,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 mv *.zip /usr/local/selenium
 mv *.deb /usr/local/selenium
 unzip /usr/local/selenium/*.zip -d /usr/local/selenium
+chmod a+rx chromedriver
 dpkg -i /usr/local/selenium/google-chrome*; sudo apt-get -f install -y
 echo ==== Setting up Xvfb ====
 apt-get install xvfb -y
