@@ -28,7 +28,7 @@ TMP_DIR=$SELENIUM_HOME
 PID_FILE=$TMP_DIR/${INTERNAL_NAME}.pid
 JAVA=/usr/bin/java
 SELENIUM_APP="$SELENIUM_HOME/$SELENIUM_JAR"
-USER=selenium
+USER=vagrant
 XDISPLAY="export DISPLAY=:99"
 
 DAEMON_OPTS="-role hub"
@@ -64,13 +64,14 @@ case "$1" in
                         fi
                 fi
                 echo "Starting $SELENIUM_COMPONENT ..."
-                $XDISPLAY && $JAVA -jar $SELENIUM_APP $DAEMON_OPTS >$STD_LOG 2>$ERROR_LOG &
+                $XDISPLAY && sudo -u $USER $JAVA -jar $SELENIUM_APP $DAEMON_OPTS >$STD_LOG 2>$ERROR_LOG &
                 error=$?
                 if test $error -gt 0
                     then
                         echo "${bon}Error $error! Couldn't start $SELENIUM_COMPONENT ${boff}"
                 fi
-                ps  -C java -o pid,cmd | grep $SELENIUM_APP  | awk {'print $1 '} > $PID_FILE
+		sleep 2
+                ps  -C java -o pid,cmd | grep $SELENIUM_APP | grep -e '-role hub' | awk {'print $1 '} > $PID_FILE
                 ;;
         stop)
                 if test -f $PID_FILE
@@ -95,13 +96,14 @@ case "$1" in
                         kill -HUP `cat $PID_FILE`
                         test -f $PID_FILE && rm -f $PID_FILE
                         sleep 1
-                        $XDISPLAY && $JAVA -jar $SELENIUM_APP $DAEMON_OPTS >$STD_LOG 2>$ERROR_LOG &
+                        $XDISPLAY && sudo -u $USER $JAVA -jar $SELENIUM_APP $DAEMON_OPTS >$STD_LOG 2>$ERROR_LOG &
                         error=$?
                         if test $error -gt 0
                             then
                                 echo "${bon}Error $error! Couldn't start Selenium!${boff}"
                         fi
-                        ps  -C java -o pid,cmd | grep $SELENIUM_APP  | awk {'print $1 '} > $PID_FILE
+			sleep 2
+                        ps  -C java -o pid,cmd | grep $SELENIUM_APP | grep -e '-role hub' | awk {'print $1 '} > $PID_FILE
                         echo "Reload $SELENIUM_COMPONENT ..."
                     else
                         echo "$SELENIUM_COMPONENT isn't running..."
