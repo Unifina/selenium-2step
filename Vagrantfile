@@ -26,7 +26,7 @@ apt-get install ant -y
 echo ==== Installing firefox ====
 apt-get install firefox -y
 echo ==== Installing chrome ====
-wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+wget http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 mv *.zip /usr/local/selenium
 mv *.deb /usr/local/selenium
